@@ -18,12 +18,10 @@ FindDialog::FindDialog(QWidget *parent)
 
     closeButton = new QPushButton(tr("Close"));
 
-    connect(lineEdit, SIGNAL(textChanged(const QString &)),
-            this, SLOT(enableFindButton(const QString &)));
-    connect(findButton, SIGNAL(clicked()),
-            this, SLOT(findClicked()));
-    connect(closeButton, SIGNAL(clicked()),
-            this, SLOT(close()));
+    //连接信号槽
+    connect(lineEdit, SIGNAL(textChanged(const QString &)), SLOT(enableFindButton(const QString &))); //输入框中有输入的时候，搜索按钮使能
+    connect(findButton, SIGNAL(clicked()), SLOT(findClicked())); //点击搜索按钮
+    connect(closeButton, SIGNAL(clicked()), SLOT(close())); //点击关闭按钮
 
     QHBoxLayout *topLeftLayout = new QHBoxLayout;
     topLeftLayout->addWidget(label);
@@ -51,9 +49,8 @@ FindDialog::FindDialog(QWidget *parent)
 void FindDialog::findClicked()
 {
     QString text = lineEdit->text();
-    Qt::CaseSensitivity cs =
-            caseCheckBox->isChecked() ? Qt::CaseSensitive
-                                      : Qt::CaseInsensitive;
+    Qt::CaseSensitivity cs = caseCheckBox->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+
     if (backwardCheckBox->isChecked()) {
         emit findPrevious(text, cs);
     } else {
