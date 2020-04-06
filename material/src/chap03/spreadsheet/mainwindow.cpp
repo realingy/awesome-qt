@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include "sortdialog.h"
 #include "spreadsheet.h"
+
 #include <QFileDialog>
 #include <QCloseEvent>
 #include <QMessageBox>
@@ -16,18 +17,18 @@ MainWindow::MainWindow()
     spreadsheet = new Spreadsheet;
     setCentralWidget(spreadsheet);
 
-    createActions();
-    createMenus();
-    createContextMenu();
-    createToolBars();
-    createStatusBar();
+    createActions(); 	//用户行为
+    createMenus(); 		//创建菜单
+    createContextMenu();//创建上下文菜单
+    createToolBars(); 	//工具栏
+    createStatusBar(); 	//状态栏
 
-    readSettings();
+    readSettings(); //读取配置
 
-    findDialog = 0;
+    findDialog = 0; //空指针，待需要调用的时候再创建
 
     setWindowIcon(QIcon(":/images/icon.png"));
-    setCurrentFile("");
+    setCurrentFile(""); //窗口标题
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -171,36 +172,35 @@ void MainWindow::createActions()
     newAction->setIcon(QIcon(":/images/new.png"));
     newAction->setShortcut(QKeySequence::New);
     newAction->setStatusTip(tr("Create a new spreadsheet file"));
-    connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
+    connect(newAction, SIGNAL(triggered()), SLOT(newFile()));
 
     openAction = new QAction(tr("&Open..."), this);
     openAction->setIcon(QIcon(":/images/open.png"));
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing spreadsheet file"));
-    connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
+    connect(openAction, SIGNAL(triggered()), SLOT(open()));
 
     saveAction = new QAction(tr("&Save"), this);
     saveAction->setIcon(QIcon(":/images/save.png"));
     saveAction->setShortcut(QKeySequence::Save);
     saveAction->setStatusTip(tr("Save the spreadsheet to disk"));
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));
+    connect(saveAction, SIGNAL(triggered()), SLOT(save()));
 
     saveAsAction = new QAction(tr("Save &As..."), this);
     saveAsAction->setStatusTip(tr("Save the spreadsheet under a new "
                                   "name"));
-    connect(saveAsAction, SIGNAL(triggered()), this, SLOT(saveAs()));
+    connect(saveAsAction, SIGNAL(triggered()), SLOT(saveAs()));
 
     for (int i = 0; i < MaxRecentFiles; ++i) {
         recentFileActions[i] = new QAction(this);
         recentFileActions[i]->setVisible(false);
-        connect(recentFileActions[i], SIGNAL(triggered()),
-                this, SLOT(openRecentFile()));
+        connect(recentFileActions[i], SIGNAL(triggered()), SLOT(openRecentFile()));
     }
 
     exitAction = new QAction(tr("E&xit"), this);
     exitAction->setShortcut(tr("Ctrl+Q"));
     exitAction->setStatusTip(tr("Exit the application"));
-    connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(exitAction, SIGNAL(triggered()), SLOT(close()));
 
     cutAction = new QAction(tr("Cu&t"), this);
     cutAction->setIcon(QIcon(":/images/cut.png"));
@@ -254,14 +254,13 @@ void MainWindow::createActions()
     findAction->setIcon(QIcon(":/images/find.png"));
     findAction->setShortcut(QKeySequence::Find);
     findAction->setStatusTip(tr("Find a matching cell"));
-    connect(findAction, SIGNAL(triggered()), this, SLOT(find()));
+    connect(findAction, SIGNAL(triggered()), SLOT(find()));
 
     goToCellAction = new QAction(tr("&Go to Cell..."), this);
     goToCellAction->setIcon(QIcon(":/images/gotocell.png"));
     goToCellAction->setShortcut(tr("Ctrl+G"));
     goToCellAction->setStatusTip(tr("Go to the specified cell"));
-    connect(goToCellAction, SIGNAL(triggered()),
-            this, SLOT(goToCell()));
+    connect(goToCellAction, SIGNAL(triggered()), SLOT(goToCell()));
 
     recalculateAction = new QAction(tr("&Recalculate"), this);
     recalculateAction->setShortcut(tr("F9"));
@@ -273,7 +272,7 @@ void MainWindow::createActions()
     sortAction = new QAction(tr("&Sort..."), this);
     sortAction->setStatusTip(tr("Sort the selected cells or all the "
                                 "cells"));
-    connect(sortAction, SIGNAL(triggered()), this, SLOT(sort()));
+    connect(sortAction, SIGNAL(triggered()), SLOT(sort()));
 
     showGridAction = new QAction(tr("&Show Grid"), this);
     showGridAction->setCheckable(true);
@@ -298,7 +297,7 @@ void MainWindow::createActions()
 
     aboutAction = new QAction(tr("&About"), this);
     aboutAction->setStatusTip(tr("Show the application's About box"));
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+    connect(aboutAction, SIGNAL(triggered()), SLOT(about()));
 
     aboutQtAction = new QAction(tr("About &Qt"), this);
     aboutQtAction->setStatusTip(tr("Show the Qt library's About box"));
@@ -384,10 +383,8 @@ void MainWindow::createStatusBar()
     statusBar()->addWidget(locationLabel);
     statusBar()->addWidget(formulaLabel, 1);
 
-    connect(spreadsheet, SIGNAL(currentCellChanged(int, int, int, int)),
-            this, SLOT(updateStatusBar()));
-    connect(spreadsheet, SIGNAL(modified()),
-            this, SLOT(spreadsheetModified()));
+    connect(spreadsheet, SIGNAL(currentCellChanged(int, int, int, int)), SLOT(updateStatusBar()));
+    connect(spreadsheet, SIGNAL(modified()), SLOT(spreadsheetModified()));
 
     updateStatusBar();
 }

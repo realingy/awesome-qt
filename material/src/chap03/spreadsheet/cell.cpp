@@ -7,11 +7,13 @@ Cell::Cell()
     setDirty();
 }
 
+//创建新的子类
 QTableWidgetItem *Cell::clone() const
 {
     return new Cell(*this);
 }
 
+//设置表格内的字符
 void Cell::setData(int role, const QVariant &value)
 {
     QTableWidgetItem::setData(role, value);
@@ -19,35 +21,42 @@ void Cell::setData(int role, const QVariant &value)
         setDirty();
 }
 
+//设置字符
 QVariant Cell::data(int role) const
 {
-    if (role == Qt::DisplayRole) {
+    if (Qt::DisplayRole == role) {
         if (value().isValid()) {
             return value().toString();
         } else {
             return "####";
         }
     } else if (role == Qt::TextAlignmentRole) {
+        return int(Qt::AlignHCenter| Qt::AlignVCenter); //居中
+        /*
         if (value().type() == QVariant::String) {
-            return int(Qt::AlignLeft | Qt::AlignVCenter);
+            return int(Qt::AlignLeft | Qt::AlignVCenter); //字符串左对齐
         } else {
-            return int(Qt::AlignRight | Qt::AlignVCenter);
+            return int(Qt::AlignRight | Qt::AlignVCenter); //其他右对齐
         }
+        */
     } else {
         return QTableWidgetItem::data(role);
     }
 }
 
+//设置公式
 void Cell::setFormula(const QString &formula)
 {
     setData(Qt::EditRole, formula);
 }
 
+//返回公式
 QString Cell::formula() const
 {
     return data(Qt::EditRole).toString();
 }
 
+//设置dirty标志
 void Cell::setDirty()
 {
     cacheIsDirty = true;

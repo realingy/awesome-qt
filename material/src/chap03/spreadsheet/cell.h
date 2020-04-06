@@ -3,6 +3,7 @@
 
 #include <QTableWidgetItem>
 
+//单格
 class Cell : public QTableWidgetItem
 {
 public:
@@ -21,6 +22,7 @@ private:
     QVariant evalTerm(const QString &str, int &pos) const;
     QVariant evalFactor(const QString &str, int &pos) const;
 
+    //mutable：在const成员函数中可以修改
     mutable QVariant cachedValue;
     mutable bool cacheIsDirty;
 };
