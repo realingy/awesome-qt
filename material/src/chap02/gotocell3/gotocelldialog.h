@@ -13,7 +13,7 @@ public:
     GoToCellDialog(QWidget *parent = 0);
 
 private slots:
-    void on_lineEdit_textChanged();
+    void on_lineEdit_textChanged(const QString &arg1);
 };
 
 #endif
