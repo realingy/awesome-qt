@@ -2,6 +2,11 @@
 #define SPREADSHEET_H
 
 #include <QTableWidget>
+#include <QMessageBox>
+#include <QApplication>
+#include <QMessageBox>
+#include <QFile>
+#include <QClipboard>
 
 class Cell;
 class SpreadsheetCompare;

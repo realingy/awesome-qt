@@ -1,10 +1,15 @@
-#include <QtGui>
-
 #include "finddialog.h"
 #include "gotocelldialog.h"
 #include "mainwindow.h"
 #include "sortdialog.h"
 #include "spreadsheet.h"
+#include <QFileDialog>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QMenuBar>
+#include <QToolBar>
+#include <QStatusBar>
+#include <QSettings>
 
 MainWindow::MainWindow()
 {

@@ -1,5 +1,3 @@
-#include <QtGui>
-
 #include "cell.h"
 #include "spreadsheet.h"
 
