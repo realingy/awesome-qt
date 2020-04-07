@@ -1,4 +1,6 @@
-#include <QtGui>
+#include <QApplication>
+#include <QTextStream>
+#include <QFile>
 
 #include "plotter.h"
 

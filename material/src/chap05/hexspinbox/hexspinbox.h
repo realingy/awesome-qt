@@ -3,7 +3,7 @@
 
 #include <QSpinBox>
 
-class QRegExpValidator;
+class QRegExpValidator; //正则表达式
 
 class HexSpinBox : public QSpinBox
 {

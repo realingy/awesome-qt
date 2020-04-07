@@ -1,7 +1,12 @@
-#include <QtGui>
 #include <cmath>
+#include <QToolButton>
+#include <QStylePainter>
+#include <QStyleOption>
+#include <QStyle>
+#include <QMouseEvent>
 
 #include "plotter.h"
+
 
 Plotter::Plotter(QWidget *parent)
     : QWidget(parent)

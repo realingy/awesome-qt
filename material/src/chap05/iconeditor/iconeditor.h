@@ -8,6 +8,8 @@
 class IconEditor : public QWidget
 {
     Q_OBJECT
+
+    //定义属性和读写属性的方法
     Q_PROPERTY(QColor penColor READ penColor WRITE setPenColor)
     Q_PROPERTY(QImage iconImage READ iconImage WRITE setIconImage)
     Q_PROPERTY(int zoomFactor READ zoomFactor WRITE setZoomFactor)
