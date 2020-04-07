@@ -1,4 +1,9 @@
 #include <QtGui>
+#include <QLabel>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QTableWidget>
+#include <QPushButton>
 
 #include "findfiledialog.h"
 
